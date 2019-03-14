@@ -14,19 +14,25 @@ namespace LearnExtended
         private AnimatedSprite animSprite;
         public int Score = 0;
         private Texture2D walkingTextureSheet;
+        public int Health;
+        public bool Alive;
 
         public Player( Vector2 center, AssetManager asset)
         {
-            Team = 1;
+            Team = eTeam.Player;
             Position = center;
             walkingTextureSheet = asset.PlayerSpriteTexture;
             hitBox = new Rectangle(new Point((int)Position.X,(int)Position.Y),new Point(walkingTextureSheet.Width/4, walkingTextureSheet.Height/4));
             animSprite = new AnimatedSprite(walkingTextureSheet, 4, 4);
+            Health = 100;
         }
 
         public override void Update(GameTime gt)
         {
+            Alive = (Health <= 0);
+
             animSprite.Update();
+                
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -49,9 +55,12 @@ namespace LearnExtended
         internal void Deflect(GameTime gt)
         {
             //Deflects the magic, if succesfull add points to score.
-            throw new NotImplementedException();
         }
 
+        internal void Hit(int damage)
+        {
+            Health -= damage;
+        }
         
     }
 }

@@ -20,37 +20,25 @@ namespace LearnExtended
         private bool canShoot = true;
         private int coolDown=0;
 
-        public enum OrbType{
-            Blue, 
-            Red,
-            Green,
-
-            Purple,
-            Cyan,
-            Yellow
-        }
 
 
-        public Enemy(OrbType type, float ang, float speed, Vector2 center, float Dist, Player target, AssetManager asset)
+        public Enemy(EntityType type, float ang, float speed, Vector2 center, float Dist, Player target, AssetManager asset)
         {
             //Team 2 is enemies
-            Team = 2;
+            Team = eTeam.Enemy;
             switch (type)
             {
-                case OrbType.Blue:
+                case EntityType.Blue:
                     Texture = asset.BlueOrbTexture;
-                    //Texture = content.Load<Texture2D>("Blending/blue");
-                    id = "Blue";
+                    id = type;
                     break;
-                case OrbType.Red:
+                case EntityType.Red:
                     Texture = asset.RedOrbTexture;
-                    //Texture = content.Load<Texture2D>("Blending/red");
-                    id = "Red";
+                    id = type;
                     break;
-                case OrbType.Green:
+                case EntityType.Green:
                     Texture = asset.GreenOrbTexture;
-                    //Texture = content.Load<Texture2D>("Blending/green");
-                    id = "Green";
+                    id = type;
                     break;
             }
             this.asset = asset;
@@ -86,7 +74,7 @@ namespace LearnExtended
             
         }
 
-        public void Shoot(OrbType orb, List<Orb> list)
+        public void Shoot(EntityType orb, List<Orb> list)
         {
             if (canShoot)
             {

@@ -13,32 +13,41 @@ namespace LearnExtended
         public Texture2D Texture;
         public Vector2 Target;
         private Vector2 SpriteCenter;
+        public int Damage;
         private bool hit = false;
+        private float Scale = 0.05f;
+        private float Rotation;
+        private float RotationSpeed;
 
-
-        public Orb(Enemy.OrbType type, Vector2 position, Vector2 target, AssetManager asset)
+        public Orb(Enemy.EntityType type, Vector2 position, Vector2 target, AssetManager asset)
         {
-            Position = position;
+            Position = position+target;
             Target = target;
-            Team = 3;
+            Team = eTeam.Projectile;
 
             switch (type){
 
-                case Enemy.OrbType.Cyan:
+                case Enemy.EntityType.Cyan:
                     Texture = asset.CyanOrbTexture;
-                    id = "Cyan";
+                    Damage = 10;
+                    RotationSpeed = 0.01f;
+                    id = EntityType.Cyan;
                     break;
-                case Enemy.OrbType.Yellow:
+                case Enemy.EntityType.Yellow:
+                    Damage = 15;
                     Texture = asset.YellowOrbTexture;
-                    id = "Yellow";
+                    RotationSpeed = 0.1f;
+                    id = EntityType.Yellow;
                     break;
-                case Enemy.OrbType.Purple:
+                case Enemy.EntityType.Purple:
                     Texture = asset.PurpleOrbTexture;
-                    id = "Purple";
+                    RotationSpeed = 0.15f;
+                    Damage = 13;
+                    id = EntityType.Purple;
                     break;
             }
             SpriteCenter = new Vector2(Texture.Width / 2, Texture.Height / 2);
-            hitBox = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point((int)(Texture.Width*0.1f), (int)(Texture.Height * 0.1f)));
+            hitBox = new Rectangle(new Point((int)Position.X, (int)Position.Y), new Point((int)(Texture.Width* Scale), (int)(Texture.Height * Scale)));
 
         }
 
@@ -46,7 +55,7 @@ namespace LearnExtended
 
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(Texture, Position, null, Color.White, 1f, SpriteCenter, 0.1f, SpriteEffects.None, 0f);
+            spritebatch.Draw(Texture, Position, null, Color.White, Rotation, SpriteCenter,Scale, SpriteEffects.None, 0f);
 
         }
 
@@ -54,6 +63,7 @@ namespace LearnExtended
         {
             Vector2 move = Position - Target;
             move.Normalize();
+            Rotation += RotationSpeed;
             Position -= move;
             hitBox.Location = new Point((int)Position.X, (int)Position.Y);
         }

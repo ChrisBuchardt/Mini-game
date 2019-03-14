@@ -37,7 +37,7 @@
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>logoicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -45,8 +45,7 @@
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
     <Compile Include="AssetManager.cs" />
-    <Compile Include="BlendColor.cs" />
-    <Compile Include="EntityLibrary.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameEntity.cs" />
     <Compile Include="Orb.cs" />
@@ -69,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <Content Include="logoicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb">
